@@ -9,11 +9,13 @@ import org.apache.commons.lang3.RandomStringUtils;
 public class Robot {
     
     private String name;
-    private Coordinates coordinates;
+    private StepDirection dir;
+    private Coordinates coor;
     
-    private Robot(String name, Coordinates coordinates) {
+    private Robot(String name, Coordinates coordinates, StepDirection dir) {
         this.name = name;
-        this.coordinates = coordinates;
+        this.coor = coordinates;
+        this.dir = dir;
     }
 
     public String getName() {
@@ -24,22 +26,37 @@ public class Robot {
         this.name = name;
     }
 
+    public StepDirection getDirection() {
+        return dir;
+    }
+
+    public void setDirection(StepDirection direction) {
+        this.dir = direction;
+    }
+
     public Coordinates getCoordinates() {
-        return coordinates;
+        return coor;
     }
 
     public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
+        this.coor = coordinates;
     }
     
     public static Robot generate(){
-        return new Robot(RandomStringUtils.randomAlphabetic(8), Coordinates.generateRandom(1));
+        return new Robot(RandomStringUtils.randomAlphabetic(8), Coordinates.generateRandom(1), StepDirection.generate());
+    }
+
+    public void step(){
+        this.coor.setX(coor.getX() + dir.x()).setY(coor.getY() + dir.y());
+    }
+
+    public void turnLeft(){
+        this.dir = StepDirection.turnLeft(this.dir);
     }
 
     @Override
     public String toString() {
-        return "Robot{" + "name=" + name + ", coordinates=" + coordinates + '}';
+        return "Robot{" + "name=" + name + ", dir=" + dir + ", coor=" + coor + '}';
     }
-    
     
 }

@@ -1,7 +1,5 @@
 package psi.manotoma.robotserver.game;
 
-import org.apache.commons.math.random.RandomData;
-import org.apache.commons.math.random.RandomDataImpl;
 import static psi.manotoma.robotserver.game.CitySize.MAX;
 import static psi.manotoma.robotserver.game.CitySize.MIN;
 
@@ -13,7 +11,6 @@ public class Coordinates {
 
     private int x;
     private int y;
-    private static RandomData gen = new RandomDataImpl();
 
     public Coordinates(int x, int y) {
         this.x = x;
@@ -28,12 +25,26 @@ public class Coordinates {
         return this.y;
     }
 
-    public void setX(int x) {
+    public Coordinates setX(int x) {
+        if (x > MAX.size()) {
+            throw new IllegalArgumentException(String.format("Cannot set x. Arg [%s] is higher than max [%s]", x, MAX.size()));
+        }
+        if (x < MIN.size()) {
+            throw new IllegalArgumentException(String.format("Cannot set x. Arg [%s] is lower than min [%s]", x, MIN.size()));
+        }
         this.x = x;
+        return this;
     }
 
-    public void setY(int y) {
+    public Coordinates setY(int y) {
+        if (y > MAX.size()) {
+            throw new IllegalArgumentException(String.format("Cannot set y. Arg [%s] is higher than max [%s]", y, MAX.size()));
+        }
+        if (y < MIN.size()) {
+            throw new IllegalArgumentException(String.format("Cannot set y. Arg [%s] is lower than min [%s]", y, MIN.size()));
+        }
         this.y = y;
+        return this;
     }
 
     /**
@@ -44,13 +55,13 @@ public class Coordinates {
         if (n < MIN.size() || n > MAX.size()) {
             throw new IllegalArgumentException(String.format("n is too low or high. min: [%s], max: [%s]", MIN.size(), MAX.size()));
         }
-        return new Coordinates(gen.nextInt(MIN.size() + n, MAX.size() - n), 
-                               gen.nextInt(MIN.size() + n, MAX.size() - n));
+        return new Coordinates(RandomUtils.nextInt(MIN.size() + n, MAX.size() - n), 
+                               RandomUtils.nextInt(MIN.size() + n, MAX.size() - n));
     }
 
     public static Coordinates generateRandom() {
-        return new Coordinates(gen.nextInt(MIN.size() - 1, MAX.size() - 1), 
-                               gen.nextInt(MIN.size() - 1, MAX.size() - 1));
+        return new Coordinates(RandomUtils.nextInt(MIN.size() - 1, MAX.size() - 1), 
+                               RandomUtils.nextInt(MIN.size() - 1, MAX.size() - 1));
     }
 
     @Override

@@ -11,6 +11,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import psi.manotoma.robotserver.game.Coordinates;
+import psi.manotoma.robotserver.game.GameContext;
 
 /**
  * Server task. Command object.
@@ -26,15 +27,12 @@ public class RobotServerTask implements Runnable {
     
     private Robot robot;
     
-    private Coordinates secret;
-
     public RobotServerTask(RobotProtocolTemplate template, Socket client) {
         robot = Robot.generate();
-        secret = Coordinates.generateRandom();
         this.template = template;
         this.client = client;
         this.template.setRobot(robot);
-        this.template.setSecret(secret);
+        this.template.setContext(new GameContext(Coordinates.generateRandom()));
     }
     
     public void run() {
