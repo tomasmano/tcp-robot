@@ -36,8 +36,8 @@ public class RobotMsgsFactory {
         return new RobotResponse(Status._210, robot.getName(), robot.getCoordinates());
     }
 
-    public static RobotResponse createResponse(Status status, RobotRequest input) {
-        return new RobotResponse(status, input.getRobot().getName(), input.getRobot().getCoordinates());
+    public static RobotResponse createResponse(Status status, Robot robot) {
+        return new RobotResponse(status, robot.getName(), robot.getCoordinates());
     }
  
     public static RobotResponse createErrorResponse(Status code) {
