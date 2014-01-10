@@ -9,6 +9,7 @@ import psi.manotoma.robotserver.io.RequestReader;
 import java.io.OutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import psi.manotoma.robotserver.game.Coordinates;
 
 /**
  * Protocol template. Example of Template Method pattern. Also the reciever of
@@ -23,6 +24,7 @@ public abstract class ProtocolTemplate<RQ extends Request, RSP extends Response>
     private RequestReader parser;
     private OutputStream os;
     protected Robot robot;
+    protected Coordinates secret;
 
     public ProtocolTemplate(RequestReader parser, OutputStream os) {
         this.parser = parser;
@@ -88,5 +90,9 @@ public abstract class ProtocolTemplate<RQ extends Request, RSP extends Response>
 
     public void setRobot(Robot robot) {
         this.robot = robot;
+    }
+
+    public void setSecret(Coordinates secret) {
+        this.secret = secret;
     }
 }

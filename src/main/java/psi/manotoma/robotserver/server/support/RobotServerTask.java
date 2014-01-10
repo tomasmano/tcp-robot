@@ -3,7 +3,6 @@ package psi.manotoma.robotserver.server.support;
 import psi.manotoma.robotserver.game.Robot;
 import psi.manotoma.robotserver.robot.RobotMsgsFactory;
 import psi.manotoma.robotserver.robot.RobotResponse;
-import psi.manotoma.robotserver.robot.Status;
 import psi.manotoma.robotserver.robot.StatusUtils;
 import psi.manotoma.robotserver.server.support.sender.RobotResponseSender;
 import java.io.IOException;
@@ -11,6 +10,7 @@ import java.net.Socket;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import psi.manotoma.robotserver.game.Coordinates;
 
 /**
  * Server task. Command object.
@@ -25,12 +25,16 @@ public class RobotServerTask implements Runnable {
     private Socket client;
     
     private Robot robot;
+    
+    private Coordinates secret;
 
     public RobotServerTask(RobotProtocolTemplate template, Socket client) {
         robot = Robot.generate();
+        secret = Coordinates.generateRandom();
         this.template = template;
         this.client = client;
         this.template.setRobot(robot);
+        this.template.setSecret(secret);
     }
     
     public void run() {
