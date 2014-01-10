@@ -33,7 +33,7 @@ public class Robot {
     }
     
     public static Robot generate(){
-        return new Robot(RandomStringUtils.randomAlphabetic(8), Coordinates.generateRandom());
+        return new Robot(RandomStringUtils.randomAlphabetic(8), Coordinates.generateRandom(1));
     }
 
     @Override
