@@ -11,6 +11,7 @@ public class RobotRequest implements Request {
 
     public RobotRequest(String inputCommand, Robot robot) {
         this.command = Command.valueOf(inputCommand);
+        this.robot = robot;
     }
 
     public Command getCommand() {
@@ -19,6 +20,11 @@ public class RobotRequest implements Request {
 
     public Robot getRobot() {
         return robot;
+    }
+
+    @Override
+    public String toString() {
+        return "RobotRequest{'" + command + "', " + robot + "}";
     }
 
     //////////  Inner Class  //////////
