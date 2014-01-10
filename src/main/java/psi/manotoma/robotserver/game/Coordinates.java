@@ -36,6 +36,18 @@ public class Coordinates {
         this.y = y;
     }
 
+    /**
+     * Generates random coordinates in default interval lowered by n
+     * @param n
+     */
+    public static Coordinates generateRandom(int n) {
+        if (n < MIN.size() || n > MAX.size()) {
+            throw new IllegalArgumentException(String.format("n is too low or high. min: [%s], max: [%s]", MIN.size(), MAX.size()));
+        }
+        return new Coordinates(gen.nextInt(MIN.size() + n, MAX.size() - n), 
+                               gen.nextInt(MIN.size() + n, MAX.size() - n));
+    }
+
     public static Coordinates generateRandom() {
         return new Coordinates(gen.nextInt(MIN.size() - 1, MAX.size() - 1), 
                                gen.nextInt(MIN.size() - 1, MAX.size() - 1));
