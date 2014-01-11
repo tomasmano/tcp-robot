@@ -11,6 +11,11 @@ public class StatusUtils {
     }
     
     public static boolean hasError(Status status) {
-        return status.qName().startsWith("5");
+        return status.code().startsWith("5");
     }
+
+    public static boolean isCloseConnection(Status status) {
+        return hasError(status) && !status.isSameAs(Status._500, Status._580);
+    }
+
 }
