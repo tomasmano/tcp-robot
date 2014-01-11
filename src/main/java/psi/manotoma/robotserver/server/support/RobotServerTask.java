@@ -32,7 +32,8 @@ public class RobotServerTask implements Runnable {
         this.template = template;
         this.client = client;
         this.template.setRobot(robot);
-        this.template.setContext(new GameContext(Coordinates.generateRandom()));
+        this.template.setContext(new GameContext(Coordinates.generateRandom(), GameContext.generateSecretText()));
+        
     }
     
     public void run() {
@@ -40,20 +41,25 @@ public class RobotServerTask implements Runnable {
     }
 
     public void process() {
-        long start = System.currentTimeMillis();
+        long startSession = System.currentTimeMillis();
         
         ack();
         
         RobotResponse res = template.doTemplate();
         
-        while(!StatusUtils.hasError(res.getStatus())){
+        while (!StatusUtils.isCloseConnection(res.getStatus())) {
+            long start = System.currentTimeMillis();
             res = template.doTemplate();
+            long end = System.currentTimeMillis();
+            long diff = end - start;
+            LOG.info("Finished [{} ms]: {}", diff, res);
         }
         IOUtils.closeQuietly(client);
-        long end = System.currentTimeMillis();
-        long diff = end - start;
         
-        LOG.info("Finished [{} ms]: {}", diff, res);
+        long endSession = System.currentTimeMillis();
+        long diffSession = endSession - startSession;
+        LOG.info("Session finished [{} ms]: {}", diffSession, res);
+
     }
 
     private void ack() {

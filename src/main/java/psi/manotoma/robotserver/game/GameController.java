@@ -1,5 +1,7 @@
 package psi.manotoma.robotserver.game;
 
+import psi.manotoma.robotserver.exception.NoSecretException;
+
 /**
  *
  * @author Tomas Mano <tomasmano@gmail.com>
@@ -20,7 +22,7 @@ public class GameController {
     
     public static void pickup(Robot robot, GameContext ctx){
         if (!robot.getCoordinates().equals(ctx.getSecret())) {
-            //loose
+            throw new NoSecretException(String.format("No secret at given coordinates %s", robot.getCoordinates()));
         }
         // win
     }

@@ -15,7 +15,11 @@ public class StatusUtils {
     }
 
     public static boolean isCloseConnection(Status status) {
-        return hasError(status) && !status.isSameAs(Status._500, Status._580);
+        return !status.isSameAs(Status._500, Status._580, Status._240, Status._210);
+    }
+
+    public static boolean isSecretFound(Status status) {
+        return status.isSameAs(Status._260);
     }
 
 }

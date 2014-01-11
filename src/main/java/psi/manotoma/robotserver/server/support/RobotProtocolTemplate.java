@@ -44,6 +44,7 @@ public class RobotProtocolTemplate extends ProtocolTemplate<RobotRequest, RobotR
         }
         if (req.getCommand().equals(RobotRequest.Command.ZVEDNI)) {
             GameController.pickup(robot, ctx);
+            return RobotMsgsFactory.createResponseSecretFound(Status._260, robot, ctx);
         }
         throw new UnknownCommandException(String.format("Unknown command [%s]", req.getCommand()));
     }

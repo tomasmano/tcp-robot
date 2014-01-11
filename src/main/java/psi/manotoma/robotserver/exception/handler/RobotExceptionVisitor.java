@@ -8,6 +8,7 @@ import psi.manotoma.robotserver.server.support.sender.RobotResponseSender;
 import java.io.OutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import psi.manotoma.robotserver.exception.NoSecretException;
 import psi.manotoma.robotserver.exception.UnknownCommandException;
 
 /**
@@ -28,6 +29,13 @@ public class RobotExceptionVisitor {
     public RobotResponse handle(UnknownCommandException ex, OutputStream os) {
         LOG.debug("Request had unknown command [{}], creating 500 response...", ex.getMessage());
         RobotResponse res = RobotMsgsFactory.createErrorResponse(Status._500);
+        RobotResponseSender.getInstance().send(res, os);
+        return res;
+    }
+
+    public RobotResponse handle(NoSecretException ex, OutputStream os) {
+        LOG.debug("{}, creating 550 response...", ex.getMessage());
+        RobotResponse res = RobotMsgsFactory.createErrorResponse(Status._550);
         RobotResponseSender.getInstance().send(res, os);
         return res;
     }

@@ -90,9 +90,11 @@ public abstract class ProtocolTemplate<RQ extends Request, RSP extends Response>
 
     public void setRobot(Robot robot) {
         this.robot = robot;
+        LOG.info("Using {}", robot);
     }
 
     public void setContext(GameContext ctx) {
         this.ctx = ctx;
+        LOG.info("Using {}", ctx);
     }
 }

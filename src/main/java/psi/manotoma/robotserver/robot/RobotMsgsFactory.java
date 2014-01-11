@@ -5,6 +5,7 @@ import psi.manotoma.robotserver.exception.BadSyntaxException;
 import psi.manotoma.robotserver.io.RequestReader;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import psi.manotoma.robotserver.game.GameContext;
 
 /**
  *
@@ -38,6 +39,10 @@ public class RobotMsgsFactory {
 
     public static RobotResponse createResponse(Status status, Robot robot) {
         return new RobotResponse(status, robot.getName(), robot.getCoordinates());
+    }
+
+    public static RobotResponse createResponseSecretFound(Status status, Robot robot, GameContext ctx) {
+        return new RobotResponse(status, robot.getName(), robot.getCoordinates(), ctx);
     }
  
     public static RobotResponse createErrorResponse(Status code) {
