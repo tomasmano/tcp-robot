@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import psi.manotoma.robotserver.exception.NoSecretException;
-import psi.manotoma.robotserver.exception.RobotDestroyedException;
+import psi.manotoma.robotserver.exception.RobotCrashedException;
 import psi.manotoma.robotserver.exception.UnknownCommandException;
 
 /**
@@ -41,9 +41,9 @@ public class RobotExceptionVisitor {
         return res;
     }
 
-    public RobotResponse handle(RobotDestroyedException ex, OutputStream os) {
-        LOG.debug("{}, creating 572 response...", ex.getMessage());
-        RobotResponse res = RobotMsgsFactory.createErrorResponse(Status._572);
+    public RobotResponse handle(RobotCrashedException ex, OutputStream os) {
+        LOG.debug("{}, creating 530 response...", ex.getMessage());
+        RobotResponse res = RobotMsgsFactory.createErrorResponse(Status._530);
         RobotResponseSender.getInstance().send(res, os);
         return res;
     }

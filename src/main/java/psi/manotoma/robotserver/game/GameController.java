@@ -1,7 +1,7 @@
 package psi.manotoma.robotserver.game;
 
 import psi.manotoma.robotserver.exception.NoSecretException;
-import psi.manotoma.robotserver.exception.RobotDestroyedException;
+import psi.manotoma.robotserver.exception.RobotCrashedException;
 
 /**
  *
@@ -13,7 +13,7 @@ public class GameController {
         try {
             robot.step();
         } catch (IllegalArgumentException e) {
-            throw new RobotDestroyedException(String.format("Step was out of the accepted coordinates. Robot [%s] has been destroyed.", robot));
+            throw new RobotCrashedException(String.format("Step was out of the accepted coordinates. Robot [%s] has been destroyed.", robot));
         }
     }
     

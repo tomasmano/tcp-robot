@@ -9,28 +9,28 @@ import java.io.OutputStream;
  *
  * @author Tomas Mano <tomasmano@gmail.com>
  */
-public class RobotDestroyedException extends RobotException {
+public class RobotCrashedException extends RobotException {
     
-    public RobotDestroyedException() {
+    public RobotCrashedException() {
     }
 
-    public RobotDestroyedException(RobotRequest request) {
+    public RobotCrashedException(RobotRequest request) {
         super(request);
     }
 
-    public RobotDestroyedException(String message) {
+    public RobotCrashedException(String message) {
         super(message);
     }
 
-    public RobotDestroyedException(String message, Throwable cause) {
+    public RobotCrashedException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public RobotDestroyedException(Throwable cause) {
+    public RobotCrashedException(Throwable cause) {
         super(cause);
     }
 
-    public RobotDestroyedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public RobotCrashedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
