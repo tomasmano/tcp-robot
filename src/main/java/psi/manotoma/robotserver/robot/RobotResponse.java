@@ -45,12 +45,15 @@ public class RobotResponse implements Response {
             return responseLine + CRLF;
         }
         if (hasError(status)) {
-            return status.qName() + CRLF;
+            responseLine = status.qName() + CRLF;
+            return responseLine;
         }
         if (isSecretFound(status)) {
-            return status.qName() + " " + ctx.getSecretText() + CRLF;
+            responseLine = status.qName() + " " + ctx.getSecretText() + CRLF;
+            return responseLine;
         }
-        return status.qName() + " " + coordinates.print() + CRLF;
+        responseLine = status.qName() + " " + coordinates.print() + CRLF;
+        return responseLine;
     }
 
     public Coordinates getCoordinates() {
@@ -61,4 +64,9 @@ public class RobotResponse implements Response {
         this.coordinates = coordinates;
     }
 
+    @Override
+    public String toString() {
+        return "RobotResponse{" + "responseLine=" + responseLine + ", robotName=" + robotName + '}';
+    }
+    
 }

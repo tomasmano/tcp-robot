@@ -1,6 +1,10 @@
 package psi.manotoma.robotserver.game;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import psi.manotoma.robotserver.robot.StepsController;
+import psi.manotoma.robotserver.robot.state.RobotBrokenProcessorState;
+import psi.manotoma.robotserver.robot.state.RobotNormalState;
+import psi.manotoma.robotserver.robot.state.RobotState;
 
 /**
  *
@@ -12,10 +16,15 @@ public class Robot {
     private StepDirection dir;
     private Coordinates coor;
     
+    private RobotState robotState;
+    private StepsController stepsController;
+    
     private Robot(String name, Coordinates coordinates, StepDirection dir) {
         this.name = name;
         this.coor = coordinates;
         this.dir = dir;
+        this.robotState = new RobotNormalState();
+        this.stepsController = new StepsController();
     }
 
     public String getName() {
@@ -47,16 +56,21 @@ public class Robot {
     }
 
     public void step(){
-        this.coor.setX(coor.getX() + dir.x()).setY(coor.getY() + dir.y());
+        if (!stepsController.validateSteps()) {
+            robotState = new RobotBrokenProcessorState();
+        }
+        robotState.step(this);
+        stepsController.incrementSteps();
     }
 
     public void turnLeft(){
-        this.dir = StepDirection.turnLeft(this.dir);
+        robotState.turnLeft(this);
+        stepsController.resetSteps();
     }
 
     @Override
     public String toString() {
-        return "Robot{" + "name=" + name + ", dir=" + dir + ", coor=" + coor + '}';
+        return "Robot{" + "name=" + name + ", dir=" + dir + ", coor=" + coor + ", state=" + robotState + ", steps=" + stepsController + '}';
     }
     
 }

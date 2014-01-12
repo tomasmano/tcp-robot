@@ -9,28 +9,28 @@ import java.io.OutputStream;
  *
  * @author Tomas Mano <tomasmano@gmail.com>
  */
-public class RobotCrashedException extends RobotException {
+public class OutOfCoordinatesException extends RobotException {
     
-    public RobotCrashedException() {
+    public OutOfCoordinatesException() {
     }
 
-    public RobotCrashedException(RobotRequest request) {
+    public OutOfCoordinatesException(RobotRequest request) {
         super(request);
     }
 
-    public RobotCrashedException(String message) {
+    public OutOfCoordinatesException(String message) {
         super(message);
     }
 
-    public RobotCrashedException(String message, Throwable cause) {
+    public OutOfCoordinatesException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public RobotCrashedException(Throwable cause) {
+    public OutOfCoordinatesException(Throwable cause) {
         super(cause);
     }
 
-    public RobotCrashedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public OutOfCoordinatesException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

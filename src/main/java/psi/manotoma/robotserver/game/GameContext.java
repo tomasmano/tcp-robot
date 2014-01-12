@@ -10,7 +10,7 @@ public class GameContext {
     
     private final Coordinates secret;
     private final String secretText;
-
+    
     public GameContext(Coordinates secret, String secretText) {
         this.secret = secret;
         this.secretText = secretText;
@@ -27,7 +27,7 @@ public class GameContext {
     public static String generateSecretText(){
         return RandomStringUtils.randomAlphabetic(32);
     }
-
+    
     @Override
     public String toString() {
         return "GameContext{" + "secret=" + secret + ", secretText=" + secretText + '}';
