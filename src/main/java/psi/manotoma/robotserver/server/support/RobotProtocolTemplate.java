@@ -40,7 +40,8 @@ public class RobotProtocolTemplate extends ProtocolTemplate<RobotRequest, RobotR
             return RobotMsgsFactory.createResponse(Status._240, robot);
         }
         if (req.getCommand().equals(RobotRequest.Command.OPRAVIT)) {
-            GameController.repair(robot, ctx);
+            GameController.repair(robot, req.getnProc(), ctx);
+            return RobotMsgsFactory.createResponse(Status._240, robot);
         }
         if (req.getCommand().equals(RobotRequest.Command.ZVEDNI)) {
             GameController.pickup(robot, ctx);

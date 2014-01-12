@@ -11,7 +11,7 @@ import psi.manotoma.robotserver.game.StepDirection;
 public class RobotBrokenProcessorState implements RobotState {
 
     public void step(Robot r) {
-        throw new RobotBrokenProcessorException(String.format("Cannot perform step on {}, processor is broken.", r));
+        throw new RobotBrokenProcessorException(String.format("Cannot perform step on [%s], processor is broken.", r));
     }
 
     public void turnLeft(Robot r) {

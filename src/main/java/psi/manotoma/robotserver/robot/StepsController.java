@@ -5,7 +5,7 @@ package psi.manotoma.robotserver.robot;
  * @author Tomas Mano <tomasmano@gmail.com>
  */
 public class StepsController {
-
+    
     private int stepsCount = 0;
 
     public void incrementSteps() {

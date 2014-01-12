@@ -6,6 +6,7 @@ import psi.manotoma.robotserver.server.model.Response;
 import static psi.manotoma.robotserver.robot.StatusUtils.isConnectionAcknwledgment;
 import static psi.manotoma.robotserver.robot.StatusUtils.hasError;
 import static psi.manotoma.robotserver.robot.StatusUtils.isSecretFound;
+import static psi.manotoma.robotserver.robot.StatusUtils.isBrokenProcessor;
 
 
 public class RobotResponse implements Response {
@@ -15,6 +16,7 @@ public class RobotResponse implements Response {
     private String robotName;
     private Coordinates coordinates;
     private GameContext ctx;
+    private int nProc;
     
     private final static String CRLF = "\r\n"; // TERMINATOR
 
@@ -31,6 +33,14 @@ public class RobotResponse implements Response {
         this.ctx = ctx;
     }
 
+    public RobotResponse(Status status, String robotName, Coordinates coordinates, GameContext ctx, int nProc) {
+        this.status = status;
+        this.robotName = robotName;
+        this.coordinates = coordinates;
+        this.ctx = ctx;
+        this.nProc = nProc;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -43,6 +53,10 @@ public class RobotResponse implements Response {
         if (isConnectionAcknwledgment(status)) {
             responseLine = Status._210.qName() + " " + robotName + ".";
             return responseLine + CRLF;
+        }
+        if (isBrokenProcessor(status)) {
+            responseLine = status.qName() + " " + nProc + CRLF;
+            return responseLine;
         }
         if (hasError(status)) {
             responseLine = status.qName() + CRLF;

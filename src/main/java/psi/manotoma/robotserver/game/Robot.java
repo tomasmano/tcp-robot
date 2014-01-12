@@ -1,6 +1,7 @@
 package psi.manotoma.robotserver.game;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import psi.manotoma.robotserver.robot.ProcessorEngine;
 import psi.manotoma.robotserver.robot.StepsController;
 import psi.manotoma.robotserver.robot.state.RobotBrokenProcessorState;
 import psi.manotoma.robotserver.robot.state.RobotNormalState;
@@ -18,6 +19,7 @@ public class Robot {
     
     private RobotState robotState;
     private StepsController stepsController;
+    private ProcessorEngine engine;
     
     private Robot(String name, Coordinates coordinates, StepDirection dir) {
         this.name = name;
@@ -25,6 +27,7 @@ public class Robot {
         this.dir = dir;
         this.robotState = new RobotNormalState();
         this.stepsController = new StepsController();
+        this.engine = new ProcessorEngine();
     }
 
     public String getName() {
@@ -50,6 +53,14 @@ public class Robot {
     public void setCoordinates(Coordinates coordinates) {
         this.coor = coordinates;
     }
+
+    public ProcessorEngine getEngine() {
+        return engine;
+    }
+
+    public void setRobotState(RobotState robotState) {
+        this.robotState = robotState;
+    }
     
     public static Robot generate(){
         return new Robot(RandomStringUtils.randomAlphabetic(8), Coordinates.generateRandom(1), StepDirection.generate());
@@ -66,6 +77,12 @@ public class Robot {
     public void turnLeft(){
         robotState.turnLeft(this);
         stepsController.resetSteps();
+    }
+    
+    public void repair(int nProc){
+        engine.repair(nProc);
+        robotState = new RobotNormalState();
+        
     }
 
     @Override

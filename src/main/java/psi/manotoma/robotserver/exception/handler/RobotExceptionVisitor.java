@@ -8,8 +8,10 @@ import psi.manotoma.robotserver.server.support.sender.RobotResponseSender;
 import java.io.OutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import psi.manotoma.robotserver.exception.InvalidProcessorRepairException;
 import psi.manotoma.robotserver.exception.NoSecretException;
 import psi.manotoma.robotserver.exception.OutOfCoordinatesException;
+import psi.manotoma.robotserver.exception.ProcessorFailureException;
 import psi.manotoma.robotserver.exception.RobotBrokenProcessorException;
 import psi.manotoma.robotserver.exception.UnknownCommandException;
 
@@ -52,6 +54,20 @@ public class RobotExceptionVisitor {
     public RobotResponse handle(RobotBrokenProcessorException ex, OutputStream os) {
         LOG.debug("{}, creating 572 response...", ex.getMessage());
         RobotResponse res = RobotMsgsFactory.createErrorResponse(Status._572);
+        RobotResponseSender.getInstance().send(res, os);
+        return res;
+    }
+
+    public RobotResponse handle(InvalidProcessorRepairException ex, OutputStream os) {
+        LOG.debug("{}, creating 571 response...", ex.getMessage());
+        RobotResponse res = RobotMsgsFactory.createErrorResponse(Status._571);
+        RobotResponseSender.getInstance().send(res, os);
+        return res;
+    }
+
+    public RobotResponse handle(ProcessorFailureException ex, OutputStream os) {
+        LOG.debug("{}, creating 580 response...", ex.getMessage());
+        RobotResponse res = RobotMsgsFactory.createErrorResponse(Status._580, ex.getnProc());
         RobotResponseSender.getInstance().send(res, os);
         return res;
     }

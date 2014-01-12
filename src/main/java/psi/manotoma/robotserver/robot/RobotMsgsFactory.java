@@ -44,9 +44,13 @@ public class RobotMsgsFactory {
     public static RobotResponse createResponseSecretFound(Status status, Robot robot, GameContext ctx) {
         return new RobotResponse(status, robot.getName(), robot.getCoordinates(), ctx);
     }
- 
+
     public static RobotResponse createErrorResponse(Status code) {
         return new RobotResponse(code, null, null);
+    }
+
+    public static RobotResponse createErrorResponse(Status code, int nProc) {
+        return new RobotResponse(code, null, null, null, nProc);
     }
 
 }

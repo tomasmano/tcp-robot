@@ -21,8 +21,8 @@ public class GameController {
         robot.turnLeft();
     }
     
-    public static void repair(Robot robot, GameContext ctx){
-        
+    public static void repair(Robot robot, int nProcessor, GameContext ctx){
+        RepairService.repairProcessor(robot, nProcessor);
     }
     
     public static void pickup(Robot robot, GameContext ctx){

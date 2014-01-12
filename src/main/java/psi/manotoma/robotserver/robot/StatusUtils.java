@@ -22,4 +22,8 @@ public class StatusUtils {
         return status.isSameAs(Status._260);
     }
 
+    public static boolean isBrokenProcessor(Status status) {
+        return status.isSameAs(Status._580);
+    }
+
 }
