@@ -4,6 +4,7 @@ import psi.manotoma.robotserver.game.Coordinates;
 import psi.manotoma.robotserver.game.GameContext;
 import psi.manotoma.robotserver.server.model.Response;
 import static psi.manotoma.robotserver.robot.StatusUtils.isConnectionAcknwledgment;
+import static psi.manotoma.robotserver.robot.StatusUtils.isConnectionTerminated;
 import static psi.manotoma.robotserver.robot.StatusUtils.hasError;
 import static psi.manotoma.robotserver.robot.StatusUtils.isSecretFound;
 import static psi.manotoma.robotserver.robot.StatusUtils.isBrokenProcessor;
@@ -64,6 +65,10 @@ public class RobotResponse implements Response {
         }
         if (isSecretFound(status)) {
             responseLine = status.qName() + " " + ctx.getSecretText() + CRLF;
+            return responseLine;
+        }
+        if (isConnectionTerminated(status)) {
+            responseLine = status.qName() + CRLF;
             return responseLine;
         }
         responseLine = status.qName() + " " + coordinates.print() + CRLF;

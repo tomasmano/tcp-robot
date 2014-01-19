@@ -24,7 +24,6 @@ public class RobotResponseSender implements ResponseSender<RobotResponse> {
             rros = new RobotResponseOutputStream(new BufferedOutputStream(os));
             rros.write(res);
             rros.flush();
-//            rros.close();
         } catch (Exception ex) {
             LOG.error("An error occured while sending response: " + ex.getMessage());
             ex.printStackTrace(System.out);

@@ -13,6 +13,7 @@ import psi.manotoma.robotserver.exception.NoSecretException;
 import psi.manotoma.robotserver.exception.OutOfCoordinatesException;
 import psi.manotoma.robotserver.exception.ProcessorFailureException;
 import psi.manotoma.robotserver.exception.RobotBrokenProcessorException;
+import psi.manotoma.robotserver.exception.TerminatedConnectionException;
 import psi.manotoma.robotserver.exception.UnknownCommandException;
 
 /**
@@ -69,6 +70,13 @@ public class RobotExceptionVisitor {
         LOG.debug("{}, creating 580 response...", ex.getMessage());
         RobotResponse res = RobotMsgsFactory.createErrorResponse(Status._580, ex.getnProc());
         RobotResponseSender.getInstance().send(res, os);
+        return res;
+    }
+
+    public RobotResponse handle(TerminatedConnectionException ex, OutputStream os) {
+        LOG.debug("{}, creating 599 response...", ex.getMessage());
+        RobotResponse res = RobotMsgsFactory.createErrorResponse(Status._599);
+        // do not send anything
         return res;
     }
 

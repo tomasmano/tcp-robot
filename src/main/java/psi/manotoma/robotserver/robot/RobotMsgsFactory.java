@@ -5,6 +5,7 @@ import psi.manotoma.robotserver.exception.BadSyntaxException;
 import psi.manotoma.robotserver.io.RequestReader;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import psi.manotoma.robotserver.exception.TerminatedConnectionException;
 import psi.manotoma.robotserver.game.GameContext;
 
 /**
@@ -26,6 +27,9 @@ public class RobotMsgsFactory {
             String firstLine = reader.read();
             request = new RobotRequest(firstLine, robot);  
             LOG.debug("Parsing finished.");
+        } catch (TerminatedConnectionException ex) {
+            LOG.error("Error occured during parsing: {}", ex);
+            throw ex;
         } catch (Exception ex) {
             LOG.error("Error occured during parsing: {}", ex);
             throw new BadSyntaxException("Bad syntax");

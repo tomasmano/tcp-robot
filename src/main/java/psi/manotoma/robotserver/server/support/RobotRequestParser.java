@@ -1,6 +1,7 @@
 package psi.manotoma.robotserver.server.support;
 
 import java.util.Scanner;
+import psi.manotoma.robotserver.exception.TerminatedConnectionException;
 import psi.manotoma.robotserver.robot.RobotRequest;
 
 /**
@@ -10,7 +11,12 @@ import psi.manotoma.robotserver.robot.RobotRequest;
 public class RobotRequestParser {
 
     public static String[] parseLine(String line){
-        Scanner sc = new Scanner(line);
+        Scanner sc = null;
+        try {
+            sc = new Scanner(line);
+        } catch (Exception e) {
+            throw new TerminatedConnectionException("Client terminated connection.");
+        }
         String name = sc.next();
         String command = sc.nextLine().trim();
         sc.close();

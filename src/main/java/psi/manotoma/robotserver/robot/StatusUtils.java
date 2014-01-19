@@ -9,6 +9,10 @@ public class StatusUtils {
     public static boolean isConnectionAcknwledgment(Status status) {
         return status.equals(Status._210);
     }
+
+    public static boolean isConnectionTerminated(Status status) {
+        return status.equals(Status._599);
+    }
     
     public static boolean hasError(Status status) {
         return status.code().startsWith("5");

@@ -7,6 +7,7 @@ import psi.manotoma.robotserver.robot.StatusUtils;
 import psi.manotoma.robotserver.server.support.sender.RobotResponseSender;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.logging.Level;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +55,24 @@ public class RobotServerTask implements Runnable {
             long diff = end - start;
             LOG.info("Finished [{} ms]: {}", diff, res);
         }
+//        try {
+//            IOUtils.closeQuietly(client.getOutputStream());
+//        } catch (IOException ex) {
+//            System.err.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//            System.err.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//            System.err.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//            System.err.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//            System.err.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//        }
+//        try {
+//            IOUtils.closeQuietly(client.getInputStream());
+//        } catch (IOException ex) {
+//            System.err.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//            System.err.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//            System.err.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//            System.err.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//            System.err.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//        }
         IOUtils.closeQuietly(client);
         
         long endSession = System.currentTimeMillis();

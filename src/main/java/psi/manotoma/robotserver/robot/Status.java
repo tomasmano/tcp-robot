@@ -14,7 +14,8 @@ public enum Status {
     _550("550 NELZE ZVEDNOUT ZNACKU", "550"),
     _571("571 PROCESOR FUNGUJE ", "571"),
     _572("572 ROBOT SE ROZPADL", "572"),
-    _580("580 SELHANI PROCESORU", "580"); //TODO + x (cis. procesoru) ??
+    _580("580 SELHANI PROCESORU", "580"), //TODO + x (cis. procesoru) ??
+    _599("599 KLIENT UKONCIL SPOJENI", "599"); //TODO + x (cis. procesoru) ??
     
     private String qName;
     private String code;
